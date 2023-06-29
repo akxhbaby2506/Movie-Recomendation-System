@@ -1,8 +1,29 @@
 import pandas as pd
 import numpy as np
-import difflib                                                  #If the user makes errors while typing the movie name, this lib is used to get the closest match of the movie
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.feature_extraction.text import TfidfVectorizer     #Numerical feature vectors
+import difflib                                                  # If the user makes errors while typing the movie name, this lib is used to get the closest match of the movie
+from sklearn.metrics.pairwise import cosine_similarity          # Used to get similarities
+from sklearn.feature_extraction.text import TfidfVectorizer     # Numerical feature vectors
+
+movies_data = pd.read_csv('/content/movies.csv')               #Upload your Data Set
+
+#Selecting only the required columns columns
+selected_features = ['genres','keywords','tagline','cast','director']
+
+#Replacing null values
+for feature in selected_features:
+  movies_data[feature] = movies_data[feature].fillna('')
+
+#Combinig all the 5 selected features -> Concanating process
+combined_features = movies_data['genres']+movies_data['keywords']+movies_data['tagline']+movies_data['cast']+movies_data['director']
+
+#Converting the text data to feature vectors
+vectorizer = TfidfVectorizer()
+feature_vectors = vectorizer.fit_transform(combined_features)
+
+#To get the similarities scores using cosine similarity
+similarity = cosine_similarity(feature_vectors)
+
+
 
 #Enter the movie
 movie_name = input("Enter your favorite movie name: ")
