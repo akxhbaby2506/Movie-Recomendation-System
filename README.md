@@ -1,6 +1,5 @@
 Certainly! Below is a sample README file content for your code:
 
-```markdown
 # Movie Recommendation System
 
 This Python script implements a movie recommendation system using content-based filtering. The system suggests movies similar to a user's input based on the movie's genres, keywords, tagline, cast, and director.
